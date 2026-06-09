@@ -1,9 +1,13 @@
-import { data } from "@/data/cv";
+import type { PortfolioData } from "@/lib/portfolio";
 import styles from "./Skills.module.css";
 
-const { skillGroups: groups } = data;
+type SkillsProps = {
+  data: PortfolioData;
+};
 
-export default function Skills() {
+export default function Skills({ data }: SkillsProps) {
+  const groups = data.skillGroups;
+
   return (
     <section id="skills" className={styles.section}>
       <div className={styles.container}>

@@ -1,7 +1,11 @@
-import { data } from '@/data/cv'
+import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Hero.module.css'
 
-export default function Hero() {
+type HeroProps = {
+  data: PortfolioData
+}
+
+export default function Hero({ data }: HeroProps) {
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.container}>

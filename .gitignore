@@ -1,6 +1,14 @@
 node_modules
 .next
 out
+frontend/.next
+frontend/out
+frontend/tsconfig.tsbuildinfo
+backend/.venv
+backend/db.sqlite3
+backend/media
+backend/**/__pycache__/
+backend/**/*.pyc
 .env.local
 .env.*.local
 .env

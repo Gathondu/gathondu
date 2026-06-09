@@ -1,7 +1,15 @@
-import { data } from "@/data/cv";
+import type { PortfolioData } from "@/lib/portfolio";
 import styles from "./Contact.module.css";
 
-export default function Contact() {
+type ContactProps = {
+  data: PortfolioData;
+};
+
+export default function Contact({ data }: ContactProps) {
+  const [headingStart, headingAccent] = (
+    data.contact_heading ?? "Let's build something together."
+  ).split("something");
+
   return (
     <section id="contact" className={styles.section}>
       <div className={styles.container}>
@@ -13,13 +21,15 @@ export default function Contact() {
         <div className={styles.layout}>
           <div>
             <h2 className={styles.heading}>
-              Let's build
+              {headingStart.trim()}
               <br />
-              <span className={styles.accent}>something together.</span>
+              <span className={styles.accent}>
+                {headingAccent ? `something${headingAccent}` : "something together."}
+              </span>
             </h2>
             <p className={styles.copy}>
-              I'm open to contract work, senior engineering roles, and technical
-              leadership positions. Based in Nairobi — available globally.
+              {data.contact_copy ??
+                "I'm open to contract work, senior engineering roles, and technical leadership positions. Based in Nairobi — available globally."}
             </p>
             <div className={styles.links}>
               <a href={`mailto:${data.email}`} className={styles.contactLink}>
@@ -59,9 +69,8 @@ export default function Contact() {
             <div className={`card-body ${styles.noteBody}`}>
               <p className={styles.noteLabel}>Quick note</p>
               <p className={styles.noteText}>
-                The fastest way to reach me is via email. I typically respond
-                within 24 hours. Tell me about your project, timeline, and what
-                kind of help you're looking for.
+                {data.contact_note ??
+                  "The fastest way to reach me is via email. I typically respond within 24 hours. Tell me about your project, timeline, and what kind of help you're looking for."}
               </p>
               <div className={`card-actions ${styles.noteActions}`}>
                 <a

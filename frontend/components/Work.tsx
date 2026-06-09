@@ -1,7 +1,11 @@
-import { data } from '@/data/cv'
+import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Work.module.css'
 
-export default function Work() {
+type WorkProps = {
+  data: PortfolioData
+}
+
+export default function Work({ data }: WorkProps) {
   return (
     <section id="work" className={styles.section}>
       <div className={styles.container}>

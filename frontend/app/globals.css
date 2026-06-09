@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-@import 'daisyui/dist/themes.css';
-@import 'daisyui/dist/styled.css';
+@import 'daisyui/themes.css';
+@import 'daisyui/daisyui.css';
 
 :root {
   --coral-50:  #FAECE7;

@@ -1,10 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { data } from '@/data/cv'
+import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Navbar.module.css'
 
-export default function Navbar() {
+type NavbarProps = {
+  data: PortfolioData
+}
+
+export default function Navbar({ data }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 

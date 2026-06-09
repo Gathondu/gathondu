@@ -1,7 +1,11 @@
-import { data } from '@/data/cv'
+import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Footer.module.css'
 
-export default function Footer() {
+type FooterProps = {
+  data: PortfolioData
+}
+
+export default function Footer({ data }: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>

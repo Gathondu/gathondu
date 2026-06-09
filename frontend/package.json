@@ -1,0 +1,29 @@
+{
+  "name": "denis-gathondu-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "dev:cms": "cd ..\\backend && uv run python manage.py runserver 8000",
+    "build": "next build --webpack",
+    "start": "next start",
+    "check:cms": "cd ..\\backend && uv run python manage.py check",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
+    "daisyui": "^5.5.23",
+    "playwright": "^1.60.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
+  }
+}

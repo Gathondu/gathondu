@@ -1,15 +1,26 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { data } from "@/data/cv";
+import type { PortfolioData } from "@/lib/portfolio";
 import Portal from "./Portal";
 import styles from "./About.module.css";
 
-type Certificate = (typeof data.certifications)[number];
+type Certificate = PortfolioData["certifications"][number];
 
-export default function About() {
+type AboutProps = {
+  data: PortfolioData;
+};
+
+export default function About({ data }: AboutProps) {
   const [selectedCertificate, setSelectedCertificate] =
     useState<Certificate | null>(null);
+  const aboutHeading = data.about_heading ?? "Ambitious, curious, driven to build.";
+  const [headingStart, headingAccent] = aboutHeading.split("driven");
+  const aboutCopy = data.about_copy ?? [
+    "I'm a full-stack engineer and tech lead based in Nairobi, Kenya. Since 2017 I've been working with Andela and their global partners, shipping production software across fintech, SaaS, e-commerce, and social impact.",
+    "I care about clean architecture, fast feedback loops, and teams that ship with confidence. I'm equally comfortable writing Django APIs, leading sprint planning, or debugging a Flutter layout at midnight.",
+    "Currently deepening my work in applied AI — RAG pipelines, LLM agents, and MCP integrations — with five certifications and growing.",
+  ];
 
   const closeCertificate = useCallback(() => {
     setSelectedCertificate(null);
@@ -26,28 +37,16 @@ export default function About() {
         <div className={styles.layout}>
           <div>
             <h2 className={styles.heading}>
-              Ambitious, curious,
+              {headingStart.trim().replace(/,$/, "")},
               <br />
-              <span className={styles.accent}>driven to build.</span>
+              <span className={styles.accent}>
+                {headingAccent ? `driven${headingAccent}` : "driven to build."}
+              </span>
             </h2>
             <div className={styles.bodyCopy}>
-              <p>
-                I'm a full-stack engineer and tech lead based in Nairobi, Kenya.
-                Since 2017 I've been working with Andela and their global
-                partners, shipping production software across fintech, SaaS,
-                e-commerce, and social impact.
-              </p>
-              <p>
-                I care about clean architecture, fast feedback loops, and teams
-                that ship with confidence. I'm equally comfortable writing
-                Django APIs, leading sprint planning, or debugging a Flutter
-                layout at midnight.
-              </p>
-              <p>
-                Currently deepening my work in applied AI — RAG pipelines, LLM
-                agents, and MCP integrations — with five certifications and
-                growing.
-              </p>
+              {aboutCopy.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
 
             <div className={`card ${styles.educationCard}`}>
@@ -101,7 +100,7 @@ export default function About() {
             <embed
               aria-label={selectedCertificate.name}
               className={styles.certificatePdf}
-              src={selectedCertificate.asset}
+              src={selectedCertificate.asset || selectedCertificate.url}
               type="application/pdf"
             />
             <a
