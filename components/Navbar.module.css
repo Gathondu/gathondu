@@ -50,6 +50,9 @@
 }
 
 .hireButton {
+  min-height: 2rem;
+  height: 2rem;
+  padding: 0 1rem;
   border-color: #e7e5e4;
   color: #44403c;
 }
@@ -60,6 +63,10 @@
 
 .mobileToggle {
   display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0;
 }
 
 .hamburger {

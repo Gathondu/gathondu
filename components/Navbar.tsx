@@ -28,7 +28,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        <ul className={`${styles.desktopMenu} menu menu-horizontal`}>
+        <ul className={styles.desktopMenu}>
           {links.map((l) => (
             <li key={l}>
               <a
@@ -42,7 +42,7 @@ export default function Navbar() {
           <li>
             <a
               href={`mailto:${data.email}`}
-              className={`btn btn-outline btn-sm ${styles.hireButton}`}
+              className={`btn btn-outline ${styles.hireButton}`}
             >
               Hire me
             </a>
@@ -50,7 +50,7 @@ export default function Navbar() {
         </ul>
 
         <button
-          className={`btn btn-ghost btn-square btn-sm ${styles.mobileToggle}`}
+          className={`btn btn-ghost ${styles.mobileToggle}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -63,7 +63,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className={`${styles.mobileMenu} menu`}>
+        <div className={styles.mobileMenu}>
           {links.map((l) => (
             <a
               key={l}

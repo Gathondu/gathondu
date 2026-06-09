@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'daisyui/dist/themes.css';
+@import 'daisyui/dist/styled.css';
 
 :root {
   --coral-50:  #FAECE7;
@@ -12,6 +10,39 @@
   --coral-600: #993C1D;
   --coral-800: #712B13;
   --coral-900: #4A1B0C;
+}
+
+[data-theme='gathondu'] {
+  color-scheme: light;
+  --p: 62.2706% 0.168269 38.2619;
+  --pc: 100% 0 0;
+  --s: 38.6471% 0.1054 38.5301;
+  --sc: 100% 0 0;
+  --a: 76.4329% 0.113203 39.7672;
+  --ac: 29.106% 0.075989 37.9119;
+  --n: 21.6115% 0.006126 56.0434;
+  --nc: 98.4825% 0.001319 106.4233;
+  --b1: 100% 0 0;
+  --b2: 98.4825% 0.001319 106.4233;
+  --b3: 92.3175% 0.002563 48.7171;
+  --bc: 21.6115% 0.006126 56.0434;
+  --in: 54.615% 0.215208 262.8809;
+  --su: 52.7299% 0.137103 150.0693;
+  --wa: 66.584% 0.157422 58.3183;
+  --er: 57.7099% 0.215157 27.325;
+  --inc: 100% 0 0;
+  --suc: 100% 0 0;
+  --wac: 100% 0 0;
+  --erc: 100% 0 0;
+  --rounded-box: 0.5rem;
+  --rounded-btn: 0.25rem;
+  --rounded-badge: 9999px;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
 }
 
 * {
