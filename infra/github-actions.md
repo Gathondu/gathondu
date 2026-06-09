@@ -68,3 +68,31 @@ PORTFOLIO_BACKEND_ORIGIN=https://167.233.100.112
   `sudo` access or passwordless `sudo`.
 - The workflow installs Docker Engine on Ubuntu/Debian if Docker is missing.
 - Certbot renewal is installed at `/etc/cron.d/gathondu-certbot-renew`.
+
+## Troubleshooting SSH auth
+
+If the upload step fails with `Permission denied (publickey,password)`, the
+server rejected the GitHub Actions key for `SERVER_USERNAME`.
+
+On your local machine, print the public key that matches the GitHub secret:
+
+```bash
+ssh-keygen -y -f ~/.ssh/gathondu_github_actions
+```
+
+On the server, add that public key to the deploy user's `authorized_keys`. For
+the default `SERVER_USERNAME=root`:
+
+```bash
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+echo 'PASTE_PUBLIC_KEY_HERE' >> /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+```
+
+The workflow prints the public key fingerprint in the `Prepare SSH private key`
+step. It should match the fingerprint for the public key on the server:
+
+```bash
+ssh-keygen -lf /root/.ssh/authorized_keys
+```

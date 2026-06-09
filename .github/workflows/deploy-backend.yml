@@ -38,6 +38,8 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SERVER_SSH_PRIVATE_KEY" > ~/.ssh/gathondu_deploy_key
           chmod 600 ~/.ssh/gathondu_deploy_key
+          ssh-keygen -y -f ~/.ssh/gathondu_deploy_key > ~/.ssh/gathondu_deploy_key.pub
+          ssh-keygen -lf ~/.ssh/gathondu_deploy_key.pub
 
       - name: Build backend deploy package
         run: |
@@ -68,6 +70,8 @@ jobs:
             scp \
               -i ~/.ssh/gathondu_deploy_key \
               -P "$SERVER_PORT" \
+              -o BatchMode=yes \
+              -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=accept-new \
               deploy-package.tar.gz \
               backend.env.production \
@@ -94,6 +98,8 @@ jobs:
 
           "${ssh_command[@]}" \
             -p "$SERVER_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
             -o StrictHostKeyChecking=accept-new \
             "$SERVER_USERNAME@$SERVER_HOST" \
             "APP_DIR='$APP_DIR' SERVER_IP='$SERVER_HOST' CERTBOT_EMAIL='$CERTBOT_EMAIL' SERVER_PASSWORD='$SERVER_PASSWORD' sh -s" <<'REMOTE'
