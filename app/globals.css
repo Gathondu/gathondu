@@ -60,6 +60,31 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.btn.btn-primary,
+.badge.badge-primary {
+  border-color: var(--coral-400);
+  background-color: var(--coral-400);
+  color: #ffffff;
+}
+
+.btn.btn-primary {
+  --btn-color: 62.2706% 0.168269 38.2619;
+  outline-color: var(--coral-400);
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:focus-visible {
+  border-color: var(--coral-600);
+  background-color: var(--coral-600);
+  color: #ffffff;
+}
+
+.badge.badge-primary {
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--coral-400);
