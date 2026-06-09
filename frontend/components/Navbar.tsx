@@ -9,15 +9,40 @@ type NavbarProps = {
   data: PortfolioData
 }
 
+type ThemePreference = 'light' | 'dark'
+
+const THEME_STORAGE_KEY = 'portfolio-theme'
+const THEME_ATTRIBUTE: Record<ThemePreference, string> = {
+  light: 'gathondu',
+  dark: 'gathondu-dark',
+}
+
 export default function Navbar({ data }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [theme, setTheme] = useState<ThemePreference>('light')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    const currentTheme =
+      document.documentElement.dataset.theme === THEME_ATTRIBUTE.dark
+        ? 'dark'
+        : 'light'
+
+    setTheme(currentTheme)
+  }, [])
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = THEME_ATTRIBUTE[nextTheme]
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme)
+    setTheme(nextTheme)
+  }
 
   return (
     <header
@@ -42,6 +67,17 @@ export default function Navbar({ data }: NavbarProps) {
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className={styles.themeToggle}
+              onClick={toggleTheme}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              type="button"
+            >
+              <span className={`${styles.themeIcon} ${theme === 'dark' ? styles.themeIconDark : ''}`} />
+            </button>
+          </li>
           <li>
             <a
               href={`mailto:${data.email}`}
@@ -77,6 +113,15 @@ export default function Navbar({ data }: NavbarProps) {
               {link.label}
             </Link>
           ))}
+          <button
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className={styles.mobileThemeToggle}
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            type="button"
+          >
+            <span className={`${styles.themeIcon} ${theme === 'dark' ? styles.themeIconDark : ''}`} />
+          </button>
           <a
             href={`mailto:${data.email}`}
             className={`btn btn-primary ${styles.mobileHireButton}`}

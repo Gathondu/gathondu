@@ -1,6 +1,6 @@
 .section {
   padding: 6rem 0;
-  background: #fafaf9;
+  background: var(--surface-muted);
 }
 
 .container {
@@ -27,7 +27,7 @@
 .rule {
   height: 1px;
   flex: 1;
-  background: #e7e5e4;
+  background: var(--border-strong);
 }
 
 .layout {
@@ -37,7 +37,7 @@
 
 .heading {
   margin: 0 0 1.5rem;
-  color: #1c1917;
+  color: var(--text-primary);
   font-size: 1.875rem;
   font-weight: 500;
   letter-spacing: 0;
@@ -52,7 +52,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: #78716c;
+  color: var(--text-muted);
   font-size: 0.875rem;
   line-height: 1.65;
 }
@@ -64,7 +64,7 @@
 .educationCard {
   margin-top: 2.5rem;
   border: 1px solid var(--coral-100);
-  background: var(--coral-50);
+  background: var(--surface-accent);
   border-radius: 0.5rem;
 }
 
@@ -83,26 +83,26 @@
 
 .degree {
   margin: 0;
-  color: #292524;
+  color: var(--text-primary);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .institution {
   margin: 0.125rem 0 0;
-  color: #78716c;
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
 .educationMeta {
   margin: 0.25rem 0 0;
-  color: #a8a29e;
+  color: var(--text-subtle);
   font-size: 0.75rem;
 }
 
 .certTitle {
   margin: 0 0 1.5rem;
-  color: #a8a29e;
+  color: var(--text-subtle);
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.15em;
@@ -116,8 +116,8 @@
 }
 
 .certCard {
-  border: 1px solid #f5f5f4;
-  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-bg);
   border-radius: 0.5rem;
 }
 
@@ -131,7 +131,7 @@
 
 .certButton:hover {
   border-color: var(--coral-100);
-  box-shadow: 0 10px 24px rgba(28, 25, 23, 0.06);
+  box-shadow: 0 10px 24px var(--shadow-soft);
   transform: translateY(-1px);
 }
 
@@ -167,7 +167,7 @@
 
 .certText {
   margin: 0;
-  color: #44403c;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   line-height: 1.4;
 }
@@ -189,7 +189,7 @@
   height: 100%;
   display: block;
   border: 0;
-  background: #fafaf9;
+  background: var(--surface-muted);
 }
 
 .certificateLink {

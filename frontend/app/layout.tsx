@@ -24,9 +24,24 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const portfolio = await getPortfolio()
+  const themeScript = `
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem('portfolio-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = storedTheme ?? (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme === 'dark' ? 'gathondu-dark' : 'gathondu';
+      } catch {
+        document.documentElement.dataset.theme = 'gathondu';
+      }
+    })();
+  `
 
   return (
-    <html lang="en" data-theme="gathondu">
+    <html lang="en" data-theme="gathondu" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <Navbar data={portfolio} />
         {children}

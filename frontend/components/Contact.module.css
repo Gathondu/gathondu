@@ -1,6 +1,6 @@
 .section {
   padding: 6rem 0;
-  background: #ffffff;
+  background: var(--surface-bg);
 }
 
 .container {
@@ -27,7 +27,7 @@
 .rule {
   height: 1px;
   flex: 1;
-  background: #e7e5e4;
+  background: var(--border-strong);
 }
 
 .layout {
@@ -38,7 +38,7 @@
 
 .heading {
   margin: 0 0 1.5rem;
-  color: #1c1917;
+  color: var(--text-primary);
   font-size: 2.25rem;
   font-weight: 500;
   letter-spacing: 0;
@@ -52,7 +52,7 @@
 .copy {
   max-width: 24rem;
   margin: 0 0 2rem;
-  color: #78716c;
+  color: var(--text-muted);
   font-size: 0.875rem;
   line-height: 1.65;
 }
@@ -80,18 +80,18 @@
 }
 
 .contactText {
-  color: #57534e;
+  color: var(--text-muted);
   font-size: 0.875rem;
   transition: color 160ms ease;
 }
 
 .contactLink:hover .contactText {
-  color: #1c1917;
+  color: var(--text-primary);
 }
 
 .noteCard {
   border: 1px solid var(--coral-100);
-  background: var(--coral-50);
+  background: var(--surface-accent);
   border-radius: 0.5rem;
 }
 
@@ -110,7 +110,7 @@
 
 .noteText {
   margin: 0;
-  color: #57534e;
+  color: var(--text-muted);
   font-size: 0.875rem;
   line-height: 1.65;
 }
