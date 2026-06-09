@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-@import 'daisyui/themes.css';
-@import 'daisyui/daisyui.css';
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "daisyui/themes.css";
+@import "daisyui/daisyui.css";
 
 :root {
-  --coral-50:  #FAECE7;
-  --coral-100: #F5C4B3;
-  --coral-200: #F0997B;
-  --coral-400: #D85A30;
-  --coral-600: #993C1D;
-  --coral-800: #712B13;
-  --coral-900: #4A1B0C;
+  --coral-50: #faece7;
+  --coral-100: #f5c4b3;
+  --coral-200: #f0997b;
+  --coral-400: #d85a30;
+  --coral-600: #993c1d;
+  --coral-800: #712b13;
+  --coral-900: #4a1b0c;
 }
 
-[data-theme='gathondu'] {
+[data-theme="gathondu"] {
   color-scheme: light;
   --p: 62.2706% 0.168269 38.2619;
   --pc: 100% 0 0;
@@ -57,10 +57,24 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
+  font-family: "Inter", system-ui, sans-serif;
   background: #ffffff;
   color: #111111;
   -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("/portfolio-branding.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: min(82vw, 58rem);
+  opacity: 0.1;
 }
 
 body:has(#hero) {
@@ -114,7 +128,9 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
