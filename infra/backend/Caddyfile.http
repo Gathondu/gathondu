@@ -8,6 +8,10 @@
 		file_server
 	}
 
+	handle_path /kaziro-api/* {
+		reverse_proxy host.docker.internal:8001
+	}
+
 	handle {
 		reverse_proxy web:8000
 	}
