@@ -53,6 +53,8 @@ DATABASE_URL=postgres://gathondu:replace-with-a-strong-password@postgres:5432/ga
 ```
 
 The `POSTGRES_PASSWORD` value and the password inside `DATABASE_URL` must match.
+The deploy script passes `.env.production` to Docker Compose with `--env-file`,
+so the `POSTGRES_*` values must be present in `BACKEND_ENV_PRODUCTION`.
 
 ## Vercel environment variables
 
