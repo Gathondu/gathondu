@@ -6,8 +6,20 @@ from content.models import Certification, Education, Experience, Profile, SkillG
 class Command(BaseCommand):
     help = "Seeds the CMS with Denis Gathondu's current portfolio content."
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--reset",
+            action="store_true",
+            help="Delete existing portfolio content before seeding.",
+        )
+
     def handle(self, *args, **options):
-        Profile.objects.all().delete()
+        if Profile.objects.exists() and not options["reset"]:
+            self.stdout.write("Portfolio profile already exists. Use --reset to replace it.")
+            return
+
+        if options["reset"]:
+            Profile.objects.all().delete()
 
         profile = Profile.objects.create(
             name="Denis Gathondu",

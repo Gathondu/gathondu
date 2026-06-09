@@ -24,3 +24,11 @@ coverage
 tsconfig.tsbuildinfo
 next-dev*.log
 output/
+infra/backend/.env.production
+infra/terraform/.terraform/
+infra/terraform/backend.tar.gz
+infra/terraform/terraform.tfvars
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/crash.log
+infra/terraform/crash.*.log

@@ -1,0 +1,4 @@
+vercel_api_token    = "replace-with-vercel-token"
+ssh_private_key_path = "~/.ssh/id_rsa"
+backend_env_file    = "../backend/.env.production"
+certbot_email       = ""

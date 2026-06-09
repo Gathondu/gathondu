@@ -68,5 +68,41 @@ export async function getPortfolio(): Promise<PortfolioData> {
     throw new Error(`Portfolio API responded with ${response.status}.`);
   }
 
-  return response.json();
+  const data = (await response.json()) as PortfolioData;
+  return proxyBackendAssets(data);
+}
+
+function proxyBackendAssets(data: PortfolioData): PortfolioData {
+  const backendOrigin = process.env.PORTFOLIO_BACKEND_ORIGIN;
+
+  if (!backendOrigin) {
+    return data;
+  }
+
+  return {
+    ...data,
+    certifications: data.certifications.map((cert) => ({
+      ...cert,
+      asset: toProxyAssetUrl(cert.asset, backendOrigin),
+    })),
+  };
+}
+
+function toProxyAssetUrl(asset: string, backendOrigin: string): string {
+  if (!asset) {
+    return asset;
+  }
+
+  try {
+    const assetUrl = new URL(asset);
+    const origin = new URL(backendOrigin);
+
+    if (assetUrl.origin !== origin.origin || !assetUrl.pathname.startsWith("/static/")) {
+      return asset;
+    }
+
+    return `/api/backend-static${assetUrl.pathname}`;
+  } catch {
+    return asset;
+  }
 }
