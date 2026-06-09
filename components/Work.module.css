@@ -1,0 +1,96 @@
+.section {
+  padding: 6rem 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.eyebrow {
+  color: var(--coral-400);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background: #e7e5e4;
+}
+
+.job {
+  padding: 2.5rem 0;
+  display: grid;
+  gap: 1.5rem;
+  border-bottom: 1px solid #f5f5f4;
+}
+
+.company {
+  margin: 0 0 0.25rem;
+  color: #292524;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.period,
+.location {
+  margin: 0;
+  color: #a8a29e;
+  font-size: 0.75rem;
+}
+
+.period {
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  margin: 0 0 1rem;
+  color: var(--coral-600);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.bullets {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.bullet {
+  display: flex;
+  gap: 0.75rem;
+  color: #57534e;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.bulletDot {
+  width: 0.25rem;
+  height: 0.25rem;
+  margin-top: 0.7rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--coral-400);
+}
+
+@media (min-width: 768px) {
+  .job {
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+  }
+}

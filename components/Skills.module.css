@@ -1,0 +1,95 @@
+.section {
+  padding: 6rem 0;
+  background: #fafaf9;
+}
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.eyebrow {
+  color: var(--coral-400);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background: #e7e5e4;
+}
+
+.layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.heading {
+  margin: 0 0 1rem;
+  color: #1c1917;
+  font-size: 1.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.accent {
+  color: var(--coral-400);
+}
+
+.copy {
+  max-width: 20rem;
+  margin: 0;
+  color: #78716c;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.groupLabel {
+  margin: 0 0 0.75rem;
+  color: #a8a29e;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skillBadge {
+  height: auto;
+  min-height: 1.75rem;
+  padding: 0.35rem 0.75rem;
+  border-color: var(--coral-100);
+  background: var(--coral-50);
+  color: var(--coral-800);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
