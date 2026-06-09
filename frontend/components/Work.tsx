@@ -11,7 +11,7 @@ export default function Work({ data }: WorkProps) {
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
           <span className={styles.eyebrow}>
-            Experience
+            {data.ui_copy.work_section_label}
           </span>
           <div className={styles.rule} />
         </div>

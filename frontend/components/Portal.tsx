@@ -6,6 +6,9 @@ import styles from './Portal.module.css'
 
 type PortalProps = {
   children: ReactNode
+  closeBackdropLabel: string
+  closeLabel: string
+  closeText: string
   isOpen: boolean
   onClose: () => void
   title: string
@@ -13,6 +16,9 @@ type PortalProps = {
 
 export default function Portal({
   children,
+  closeBackdropLabel,
+  closeLabel,
+  closeText,
   isOpen,
   onClose,
   title,
@@ -62,18 +68,18 @@ export default function Portal({
             {title}
           </h2>
           <button
-            aria-label="Close modal"
+            aria-label={closeLabel}
             className={`btn btn-ghost ${styles.closeButton}`}
             onClick={onClose}
             type="button"
           >
-            x
+            {closeText}
           </button>
         </div>
         <div className={styles.content}>{children}</div>
       </div>
       <button
-        aria-label="Close modal backdrop"
+        aria-label={closeBackdropLabel}
         className="modal-backdrop"
         onClick={onClose}
         type="button"

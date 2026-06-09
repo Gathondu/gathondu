@@ -7,25 +7,29 @@ type SkillsProps = {
 
 export default function Skills({ data }: SkillsProps) {
   const groups = data.skillGroups;
+  const headingLines = data.skill_heading.split("\n");
 
   return (
     <section id="skills" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
-          <span className={styles.eyebrow}>Skills</span>
+          <span className={styles.eyebrow}>{data.ui_copy.skills_section_label}</span>
           <div className={styles.rule} />
         </div>
 
         <div className={styles.layout}>
           <div>
             <h2 className={styles.heading}>
-              The tools I reach
-              <br />
-              <span className={styles.accent}>for most.</span>
+              {headingLines[0]}
+              {headingLines.slice(1).map((line) => (
+                <span key={line}>
+                  <br />
+                  <span className={styles.accent}>{line}</span>
+                </span>
+              ))}
             </h2>
             <p className={styles.copy}>
-              Comfortable from database schema to deployment pipeline. I pick
-              what solves the problem — not what's trendy.
+              {data.skill_copy}
             </p>
           </div>
 

@@ -14,13 +14,7 @@ type AboutProps = {
 export default function About({ data }: AboutProps) {
   const [selectedCertificate, setSelectedCertificate] =
     useState<Certificate | null>(null);
-  const aboutHeading = data.about_heading ?? "Ambitious, curious, driven to build.";
-  const [headingStart, headingAccent] = aboutHeading.split("driven");
-  const aboutCopy = data.about_copy ?? [
-    "I'm a full-stack engineer and tech lead based in Nairobi, Kenya. Since 2017 I've been working with Andela and their global partners, shipping production software across fintech, SaaS, e-commerce, and social impact.",
-    "I care about clean architecture, fast feedback loops, and teams that ship with confidence. I'm equally comfortable writing Django APIs, leading sprint planning, or debugging a Flutter layout at midnight.",
-    "Currently deepening my work in applied AI — RAG pipelines, LLM agents, and MCP integrations — with five certifications and growing.",
-  ];
+  const headingLines = data.about_heading.split("\n");
 
   const closeCertificate = useCallback(() => {
     setSelectedCertificate(null);
@@ -30,28 +24,30 @@ export default function About({ data }: AboutProps) {
     <section id="about" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
-          <span className={styles.eyebrow}>About</span>
+          <span className={styles.eyebrow}>{data.ui_copy.about_section_label}</span>
           <div className={styles.rule} />
         </div>
 
         <div className={styles.layout}>
           <div>
             <h2 className={styles.heading}>
-              {headingStart.trim().replace(/,$/, "")},
-              <br />
-              <span className={styles.accent}>
-                {headingAccent ? `driven${headingAccent}` : "driven to build."}
-              </span>
+              {headingLines[0]}
+              {headingLines.slice(1).map((line) => (
+                <span key={line}>
+                  <br />
+                  <span className={styles.accent}>{line}</span>
+                </span>
+              ))}
             </h2>
             <div className={styles.bodyCopy}>
-              {aboutCopy.map((paragraph) => (
+              {data.about_copy.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
             <div className={`card ${styles.educationCard}`}>
               <div className={`card-body ${styles.educationBody}`}>
-                <p className={styles.cardLabel}>Education</p>
+                <p className={styles.cardLabel}>{data.ui_copy.education_label}</p>
                 <p className={styles.degree}>{data.education.degree}</p>
                 <p className={styles.institution}>
                   {data.education.institution}
@@ -64,11 +60,11 @@ export default function About({ data }: AboutProps) {
           </div>
 
           <div>
-            <p className={styles.certTitle}>AI Certifications</p>
+            <p className={styles.certTitle}>{data.ui_copy.certifications_label}</p>
             <div className={styles.certList}>
               {data.certifications.map((cert, i) => (
                 <button
-                  aria-label={`View certificate: ${cert.name}`}
+                  aria-label={`${data.ui_copy.view_certificate_label}: ${cert.name}`}
                   className={`card ${styles.certCard} ${styles.certButton}`}
                   key={cert.url}
                   onClick={() => setSelectedCertificate(cert)}
@@ -80,7 +76,7 @@ export default function About({ data }: AboutProps) {
                     </span>
                     <span className={styles.certContent}>
                       <span className={styles.certText}>{cert.name}</span>
-                      <span className={styles.certHint}>View certificate</span>
+                      <span className={styles.certHint}>{data.ui_copy.view_certificate_label}</span>
                     </span>
                   </div>
                 </button>
@@ -93,23 +89,28 @@ export default function About({ data }: AboutProps) {
       <Portal
         isOpen={selectedCertificate !== null}
         onClose={closeCertificate}
-        title={selectedCertificate?.name ?? "Certificate"}
+        closeBackdropLabel={data.ui_copy.modal_backdrop_close_label}
+        closeLabel={data.ui_copy.modal_close_label}
+        closeText={data.ui_copy.modal_close_text}
+        title={selectedCertificate?.name ?? data.ui_copy.certificate_modal_fallback_title}
       >
         {selectedCertificate && (
           <div className={styles.certificateFrame}>
-            <embed
-              aria-label={selectedCertificate.name}
-              className={styles.certificatePdf}
-              src={selectedCertificate.asset || selectedCertificate.url}
-              type="application/pdf"
-            />
+            {selectedCertificate.asset && (
+              <embed
+                aria-label={selectedCertificate.name}
+                className={styles.certificatePdf}
+                src={selectedCertificate.asset}
+                type="application/pdf"
+              />
+            )}
             <a
               className={`btn btn-primary ${styles.certificateLink}`}
               href={selectedCertificate.url}
               rel="noopener noreferrer"
               target="_blank"
             >
-              Open certificate in new tab
+              {data.ui_copy.open_certificate_label}
             </a>
           </div>
         )}

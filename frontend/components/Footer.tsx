@@ -10,7 +10,7 @@ export default function Footer({ data }: FooterProps) {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <p className={styles.copyright}>
-          © {new Date().getFullYear()} {data.name} · Nairobi, Kenya
+          © {new Date().getFullYear()} {data.name} · {data.location}
         </p>
         <div className={styles.links}>
           <a
@@ -19,7 +19,7 @@ export default function Footer({ data }: FooterProps) {
             rel="noopener noreferrer"
             className={styles.link}
           >
-            GitHub
+            {data.ui_copy.footer_github_label}
           </a>
           <a
             href={data.linkedin}
@@ -27,13 +27,13 @@ export default function Footer({ data }: FooterProps) {
             rel="noopener noreferrer"
             className={styles.link}
           >
-            LinkedIn
+            {data.ui_copy.footer_linkedin_label}
           </a>
           <a
             href={`mailto:${data.email}`}
             className={styles.link}
           >
-            Email
+            {data.ui_copy.footer_email_label}
           </a>
         </div>
       </div>

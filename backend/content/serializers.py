@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.storage import staticfiles_storage
 from rest_framework import serializers
 
 from .models import Certification, Education, Experience, Profile, SkillGroup, Stat
@@ -35,10 +36,10 @@ class CertificationSerializer(serializers.ModelSerializer):
         fields = ["name", "url", "asset"]
 
     def get_asset(self, obj):
-        if not obj.certificate_file:
+        if not obj.static_asset_path:
             return ""
         request = self.context.get("request")
-        url = obj.certificate_file.url
+        url = staticfiles_storage.url(obj.static_asset_path)
         return request.build_absolute_uri(url) if request else url
 
 
@@ -62,6 +63,14 @@ class ProfileSerializer(serializers.ModelSerializer):
             "available",
             "headline",
             "bio",
+            "seo_title",
+            "seo_description",
+            "open_graph_title",
+            "open_graph_description",
+            "nav_links",
+            "ui_copy",
+            "skill_heading",
+            "skill_copy",
             "about_heading",
             "about_copy",
             "contact_heading",

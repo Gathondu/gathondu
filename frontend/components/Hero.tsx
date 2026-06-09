@@ -6,30 +6,30 @@ type HeroProps = {
 }
 
 export default function Hero({ data }: HeroProps) {
+  const headlineLines = data.headline.split('\n')
+  const accentLine = headlineLines.at(-1)
+
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.container}>
         <div className={styles.eyebrow}>
           <span className={styles.statusDot} />
           <span className={styles.statusText}>
-            {data.available ? 'Available for contracts' : 'Currently unavailable'}
+            {data.available
+              ? data.ui_copy.available_status
+              : data.ui_copy.unavailable_status}
           </span>
         </div>
 
         <h1 className={styles.headline}>
-          {data.headline.split('\n').map((line, i) => (
+          {headlineLines.map((line, i) => (
             <span key={i}>
-              {i === 1 ? (
-                <>
-                  that{' '}
-                  <em className={styles.accent}>
-                    actually ships.
-                  </em>
-                </>
+              {i === headlineLines.length - 1 ? (
+                <em className={styles.accent}>{accentLine}</em>
               ) : (
                 line
               )}
-              {i === 0 && <br />}
+              {i < headlineLines.length - 1 && <br />}
             </span>
           ))}
         </h1>
@@ -43,13 +43,13 @@ export default function Hero({ data }: HeroProps) {
             href="#work"
             className={`btn btn-primary ${styles.button}`}
           >
-            View my work
+            {data.ui_copy.hero_primary_action}
           </a>
           <a
             href={`mailto:${data.email}`}
             className={`btn btn-outline ${styles.button} ${styles.secondaryButton}`}
           >
-            Get in touch
+            {data.ui_copy.hero_secondary_action}
           </a>
           <a
             href={data.github}
@@ -57,7 +57,7 @@ export default function Hero({ data }: HeroProps) {
             rel="noopener noreferrer"
             className={`btn btn-ghost ${styles.button} ${styles.ghostButton}`}
           >
-            GitHub ↗
+            {data.ui_copy.hero_github_action} {data.ui_copy.external_link_suffix}
           </a>
         </div>
 

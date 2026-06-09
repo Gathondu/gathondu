@@ -1,6 +1,6 @@
 # Portfolio CMS Backend
 
-Django admin and REST API for managing the portfolio content that used to live in `frontend/data/cv.ts`.
+Django admin and REST API for managing portfolio content.
 
 ## Setup
 
@@ -25,4 +25,4 @@ Create `frontend/.env.local` from the repo root:
 PORTFOLIO_API_URL=http://127.0.0.1:8000/api/portfolio/
 ```
 
-The Next app will use the CMS when that environment variable is available. If the API is offline, it falls back to `frontend/data/cv.ts` so builds and previews still work.
+The Next app uses the CMS as its content source. Keep the API running when building or previewing the frontend.

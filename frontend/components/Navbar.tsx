@@ -18,8 +18,6 @@ export default function Navbar({ data }: NavbarProps) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const links = ['Work', 'Skills', 'About', 'Contact']
-
   return (
     <header
       className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
@@ -33,13 +31,13 @@ export default function Navbar({ data }: NavbarProps) {
         </a>
 
         <ul className={styles.desktopMenu}>
-          {links.map((l) => (
-            <li key={l}>
+          {data.nav_links.map((link) => (
+            <li key={link.href}>
               <a
-                href={`#${l.toLowerCase()}`}
+                href={link.href}
                 className={styles.navLink}
               >
-                {l}
+                {link.label}
               </a>
             </li>
           ))}
@@ -48,7 +46,7 @@ export default function Navbar({ data }: NavbarProps) {
               href={`mailto:${data.email}`}
               className={`btn btn-outline ${styles.hireButton}`}
             >
-              Hire me
+              {data.ui_copy.nav_hire_label}
             </a>
           </li>
         </ul>
@@ -56,7 +54,7 @@ export default function Navbar({ data }: NavbarProps) {
         <button
           className={`btn btn-ghost ${styles.mobileToggle}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={data.ui_copy.mobile_nav_toggle_label}
         >
           <span className={styles.hamburger}>
             <span className={`${styles.bar} ${menuOpen ? styles.barTopOpen : ''}`} />
@@ -68,14 +66,14 @@ export default function Navbar({ data }: NavbarProps) {
 
       {menuOpen && (
         <div className={styles.mobileMenu}>
-          {links.map((l) => (
+          {data.nav_links.map((link) => (
             <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
+              key={link.href}
+              href={link.href}
               className={styles.mobileLink}
               onClick={() => setMenuOpen(false)}
             >
-              {l}
+              {link.label}
             </a>
           ))}
           <a
@@ -83,7 +81,7 @@ export default function Navbar({ data }: NavbarProps) {
             className={`btn btn-primary ${styles.mobileHireButton}`}
             onClick={() => setMenuOpen(false)}
           >
-            Hire me →
+            {data.ui_copy.mobile_nav_hire_label} {data.ui_copy.cta_arrow}
           </a>
         </div>
       )}
