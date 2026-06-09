@@ -22,12 +22,15 @@ SERVER_PORT=22
 SERVER_APP_DIR=/opt/gathondu
 CERTBOT_EMAIL=you@example.com
 SERVER_PASSWORD=your-server-password
+SERVER_SSH_PASSPHRASE=your-private-key-passphrase
 ```
 
 `CERTBOT_EMAIL` is optional, but recommended for Let's Encrypt expiry notices.
 `SERVER_PASSWORD` is only required when using password-based SSH, or when
 deploying as a non-root user that needs a password for `sudo`.
-`SERVER_SSH_PRIVATE_KEY` must be an unencrypted private key.
+`SERVER_SSH_PASSPHRASE` is only required when `SERVER_SSH_PRIVATE_KEY` is
+encrypted. For CI deploy keys, an unencrypted private key is simpler and avoids
+interactive prompt issues.
 
 ## BACKEND_ENV_PRODUCTION example
 

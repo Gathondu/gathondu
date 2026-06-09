@@ -20,6 +20,7 @@ jobs:
       SERVER_HOST: ${{ secrets.SERVER_HOST || '167.233.100.112' }}
       SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
       SERVER_PORT: ${{ secrets.SERVER_PORT || '22' }}
+      SERVER_SSH_PASSPHRASE: ${{ secrets.SERVER_SSH_PASSPHRASE }}
       SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
       SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
 
@@ -38,7 +39,21 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SERVER_SSH_PRIVATE_KEY" > ~/.ssh/gathondu_deploy_key
           chmod 600 ~/.ssh/gathondu_deploy_key
-          ssh-keygen -y -f ~/.ssh/gathondu_deploy_key > ~/.ssh/gathondu_deploy_key.pub
+          if [ -n "$SERVER_SSH_PASSPHRASE" ]; then
+            eval "$(ssh-agent -a "$RUNNER_TEMP/gathondu-ssh-agent.sock" -s)"
+            printf 'SSH_AUTH_SOCK=%s\n' "$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+            printf 'SSH_AGENT_PID=%s\n' "$SSH_AGENT_PID" >> "$GITHUB_ENV"
+            askpass_file="$(mktemp)"
+            printf '#!/bin/sh\nprintf %%s "$SERVER_SSH_PASSPHRASE"\n' > "$askpass_file"
+            chmod 700 "$askpass_file"
+            export SSH_ASKPASS="$askpass_file"
+            export SSH_ASKPASS_REQUIRE=force
+            DISPLAY=:0 ssh-add ~/.ssh/gathondu_deploy_key
+            rm -f "$askpass_file"
+            ssh-add -L > ~/.ssh/gathondu_deploy_key.pub
+          else
+            ssh-keygen -y -f ~/.ssh/gathondu_deploy_key > ~/.ssh/gathondu_deploy_key.pub
+          fi
           ssh-keygen -lf ~/.ssh/gathondu_deploy_key.pub
 
       - name: Build backend deploy package
