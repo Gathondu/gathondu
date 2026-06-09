@@ -1,7 +1,20 @@
+"use client";
+
+import { useCallback, useState } from "react";
 import { data } from "@/data/cv";
+import Portal from "./Portal";
 import styles from "./About.module.css";
 
+type Certificate = (typeof data.certifications)[number];
+
 export default function About() {
+  const [selectedCertificate, setSelectedCertificate] =
+    useState<Certificate | null>(null);
+
+  const closeCertificate = useCallback(() => {
+    setSelectedCertificate(null);
+  }, []);
+
   return (
     <section id="about" className={styles.section}>
       <div className={styles.container}>
@@ -55,19 +68,53 @@ export default function About() {
             <p className={styles.certTitle}>AI Certifications</p>
             <div className={styles.certList}>
               {data.certifications.map((cert, i) => (
-                <div key={i} className={`card ${styles.certCard}`}>
+                <button
+                  aria-label={`View certificate: ${cert.name}`}
+                  className={`card ${styles.certCard} ${styles.certButton}`}
+                  key={cert.url}
+                  onClick={() => setSelectedCertificate(cert)}
+                  type="button"
+                >
                   <div className={`card-body ${styles.certBody}`}>
                     <span className={`badge badge-primary ${styles.certBadge}`}>
                       {i + 1}
                     </span>
-                    <p className={styles.certText}>{cert.name}</p>
+                    <span className={styles.certContent}>
+                      <span className={styles.certText}>{cert.name}</span>
+                      <span className={styles.certHint}>View certificate</span>
+                    </span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      <Portal
+        isOpen={selectedCertificate !== null}
+        onClose={closeCertificate}
+        title={selectedCertificate?.name ?? "Certificate"}
+      >
+        {selectedCertificate && (
+          <div className={styles.certificateFrame}>
+            <embed
+              aria-label={selectedCertificate.name}
+              className={styles.certificatePdf}
+              src={selectedCertificate.asset}
+              type="application/pdf"
+            />
+            <a
+              className={`btn btn-primary ${styles.certificateLink}`}
+              href={selectedCertificate.url}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Open certificate in new tab
+            </a>
+          </div>
+        )}
+      </Portal>
     </section>
   );
 }

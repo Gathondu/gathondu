@@ -1,3 +1,5 @@
+import asset from "@/assets";
+
 export const data = {
   name: "Denis Gathondu",
   initials: "DNG",
@@ -206,22 +208,27 @@ export const data = {
     {
       name: "LangChain, Pinecone & OpenAI: Build Next-Gen LLM Apps",
       url: "https://www.udemy.com/certificate/UC-bd103fa3-1610-42f7-8286-3e86abc2b771/?utm_source=sendgrid.com&utm_medium=email&utm_campaign=email",
+      asset: asset.certificates.llm,
     },
     {
       name: "AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents",
       url: "https://www.udemy.com/certificate/UC-9b497638-2420-40f6-a375-eb02d45038b3/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
+      asset: asset.certificates.core,
     },
     {
       name: "AI Leader: Generative AI & Agentic AI for Leaders & Founders",
       url: "https://www.udemy.com/certificate/UC-7bccd45a-3abd-401a-8b12-b3ffe030447a/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
+      asset: asset.certificates.leader,
     },
     {
       name: "AI Engineer Agentic Track: The Complete Agent & MCP Course",
       url: "https://www.udemy.com/certificate/UC-3388c666-70be-4556-9411-5451d12197c1/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
+      asset: asset.certificates.agentic,
     },
     {
       name: "AI Engineer Production Track: Deploy LLMs & Agents at Scale",
       url: "https://www.udemy.com/certificate/UC-e33ff652-9bf1-4c33-acab-6505c7d313e4/?utm_campaign=email&utm_medium=email&utm_source=sendgrid.com",
+      asset: asset.certificates.production,
     },
   ],
 };

@@ -13,5 +13,6 @@ pnpm-debug.log*
 .idea
 .vscode
 coverage
+tsconfig.tsbuildinfo
 next-dev*.log
 output/
