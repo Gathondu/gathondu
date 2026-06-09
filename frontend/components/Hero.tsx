@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Hero.module.css'
 
@@ -39,12 +40,12 @@ export default function Hero({ data }: HeroProps) {
         </p>
 
         <div className={styles.actions}>
-          <a
-            href="#work"
+          <Link
+            href="/work"
             className={`btn btn-primary ${styles.button}`}
           >
             {data.ui_copy.hero_primary_action}
-          </a>
+          </Link>
           <a
             href={`mailto:${data.email}`}
             className={`btn btn-outline ${styles.button} ${styles.secondaryButton}`}

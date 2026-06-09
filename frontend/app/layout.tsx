@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import { getPortfolio } from '@/lib/portfolio'
 import './globals.css'
 
@@ -16,14 +18,20 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const portfolio = await getPortfolio()
+
   return (
     <html lang="en" data-theme="gathondu">
-      <body>{children}</body>
+      <body>
+        <Navbar data={portfolio} />
+        {children}
+        <Footer data={portfolio} />
+      </body>
     </html>
   )
 }

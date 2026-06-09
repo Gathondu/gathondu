@@ -24,10 +24,10 @@ class Command(BaseCommand):
             open_graph_title="Denis Gathondu - Tech Lead & Full-Stack Engineer",
             open_graph_description="Senior software engineer and tech lead based in Nairobi.",
             nav_links=[
-                {"label": "Work", "href": "#work"},
-                {"label": "Skills", "href": "#skills"},
-                {"label": "About", "href": "#about"},
-                {"label": "Contact", "href": "#contact"},
+                {"label": "Work", "href": "/work"},
+                {"label": "Skills", "href": "/skills"},
+                {"label": "About", "href": "/about"},
+                {"label": "Contact", "href": "/contact"},
             ],
             ui_copy={
                 "available_status": "Available for contracts",

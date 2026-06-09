@@ -1,12 +1,12 @@
-import Hero from '@/components/Hero'
+import About from '@/components/About'
 import { getPortfolio } from '@/lib/portfolio'
 
-export default async function Home() {
+export default async function AboutPage() {
   const portfolio = await getPortfolio()
 
   return (
     <main>
-      <Hero data={portfolio} />
+      <About data={portfolio} />
     </main>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import type { PortfolioData } from '@/lib/portfolio'
 import styles from './Navbar.module.css'
@@ -23,22 +24,22 @@ export default function Navbar({ data }: NavbarProps) {
       className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
     >
       <nav className={styles.nav}>
-        <a href="#" className={styles.brand}>
+        <Link href="/" className={styles.brand}>
           {data.name.split(' ')[0]}{' '}
           <span className={styles.brandAccent}>
             {data.name.split(' ').slice(1).join(' ')}
           </span>
-        </a>
+        </Link>
 
         <ul className={styles.desktopMenu}>
           {data.nav_links.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className={styles.navLink}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
@@ -67,14 +68,14 @@ export default function Navbar({ data }: NavbarProps) {
       {menuOpen && (
         <div className={styles.mobileMenu}>
           {data.nav_links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={styles.mobileLink}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <a
             href={`mailto:${data.email}`}
