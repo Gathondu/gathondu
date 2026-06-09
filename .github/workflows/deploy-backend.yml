@@ -20,6 +20,7 @@ jobs:
       SERVER_HOST: ${{ secrets.SERVER_HOST || '167.233.100.112' }}
       SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
       SERVER_PORT: ${{ secrets.SERVER_PORT || '22' }}
+      SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
       SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
 
     steps:
@@ -30,6 +31,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass
+
+      - name: Prepare SSH private key
+        if: ${{ env.SERVER_SSH_PRIVATE_KEY != '' }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SERVER_SSH_PRIVATE_KEY" > ~/.ssh/gathondu_deploy_key
+          chmod 600 ~/.ssh/gathondu_deploy_key
 
       - name: Build backend deploy package
         run: |
@@ -56,16 +64,35 @@ jobs:
 
       - name: Upload deployment files
         run: |
-          sshpass -p "$SERVER_PASSWORD" scp \
-            -P "$SERVER_PORT" \
-            -o StrictHostKeyChecking=accept-new \
-            deploy-package.tar.gz \
-            backend.env.production \
-            "$SERVER_USERNAME@$SERVER_HOST:/tmp/"
+          if [ -f ~/.ssh/gathondu_deploy_key ]; then
+            scp \
+              -i ~/.ssh/gathondu_deploy_key \
+              -P "$SERVER_PORT" \
+              -o StrictHostKeyChecking=accept-new \
+              deploy-package.tar.gz \
+              backend.env.production \
+              "$SERVER_USERNAME@$SERVER_HOST:/tmp/"
+          else
+            test -n "$SERVER_PASSWORD"
+            SSHPASS="$SERVER_PASSWORD" sshpass -e scp \
+              -P "$SERVER_PORT" \
+              -o StrictHostKeyChecking=accept-new \
+              deploy-package.tar.gz \
+              backend.env.production \
+              "$SERVER_USERNAME@$SERVER_HOST:/tmp/"
+          fi
 
       - name: Deploy on server
         run: |
-          sshpass -p "$SERVER_PASSWORD" ssh \
+          if [ -f ~/.ssh/gathondu_deploy_key ]; then
+            ssh_command=(ssh -i ~/.ssh/gathondu_deploy_key)
+          else
+            test -n "$SERVER_PASSWORD"
+            ssh_command=(sshpass -e ssh)
+            export SSHPASS="$SERVER_PASSWORD"
+          fi
+
+          "${ssh_command[@]}" \
             -p "$SERVER_PORT" \
             -o StrictHostKeyChecking=accept-new \
             "$SERVER_USERNAME@$SERVER_HOST" \

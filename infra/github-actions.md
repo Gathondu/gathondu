@@ -10,7 +10,7 @@ Create these in GitHub under **Settings -> Secrets and variables -> Actions**:
 
 ```text
 SERVER_USERNAME=root
-SERVER_PASSWORD=your-server-password
+SERVER_SSH_PRIVATE_KEY=<private key with SSH access to the server>
 BACKEND_ENV_PRODUCTION=<paste the full production env block>
 ```
 
@@ -21,9 +21,13 @@ SERVER_HOST=167.233.100.112
 SERVER_PORT=22
 SERVER_APP_DIR=/opt/gathondu
 CERTBOT_EMAIL=you@example.com
+SERVER_PASSWORD=your-server-password
 ```
 
 `CERTBOT_EMAIL` is optional, but recommended for Let's Encrypt expiry notices.
+`SERVER_PASSWORD` is only required when using password-based SSH, or when
+deploying as a non-root user that needs a password for `sudo`.
+`SERVER_SSH_PRIVATE_KEY` must be an unencrypted private key.
 
 ## BACKEND_ENV_PRODUCTION example
 
@@ -58,9 +62,9 @@ PORTFOLIO_BACKEND_ORIGIN=https://167.233.100.112
 
 ## Notes
 
-- The workflow uses SSH password auth because the current server credential plan
-  uses a username and password.
+- The workflow uses `SERVER_SSH_PRIVATE_KEY` when it is set. It falls back to
+  password auth with `SERVER_PASSWORD` for servers that allow SSH passwords.
 - If `SERVER_USERNAME` is not `root`, the account must have password-based
-  `sudo` access.
+  `sudo` access or passwordless `sudo`.
 - The workflow installs Docker Engine on Ubuntu/Debian if Docker is missing.
 - Certbot renewal is installed at `/etc/cron.d/gathondu-certbot-renew`.
