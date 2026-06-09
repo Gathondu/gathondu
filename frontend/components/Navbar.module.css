@@ -67,6 +67,14 @@
 
 .hireButton:hover {
   border-color: var(--text-subtle);
+  background: var(--surface-soft);
+  color: var(--text-primary);
+}
+
+.hireButton:focus-visible {
+  border-color: var(--coral-400);
+  background: var(--surface-soft);
+  color: var(--text-primary);
 }
 
 .themeToggle,
