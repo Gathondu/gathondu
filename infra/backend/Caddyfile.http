@@ -12,6 +12,11 @@
 		reverse_proxy host.docker.internal:8001
 	}
 
+	handle_path /media/* {
+		root * /srv/media
+		file_server
+	}
+
 	handle {
 		reverse_proxy web:8000
 	}

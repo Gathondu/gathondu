@@ -23,6 +23,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - media-data:/app/media
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; req=urllib.request.Request('http://127.0.0.1:8000/healthz/', headers={'X-Forwarded-Proto':'https'}); urllib.request.urlopen(req, timeout=5)"]
       interval: 30s
@@ -45,6 +47,7 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - certbot-webroot:/var/www/certbot
       - letsencrypt:/etc/letsencrypt:ro
+      - media-data:/srv/media:ro
       - caddy-data:/data
       - caddy-config:/config
 
@@ -59,4 +62,5 @@ volumes:
   caddy-data:
   certbot-webroot:
   letsencrypt:
+  media-data:
   postgres-data:

@@ -28,6 +28,9 @@ terraform apply
 The backend deploy uses SSH as `root@167.233.100.112` by default and uploads a
 clean backend tarball instead of copying local virtualenvs or SQLite files.
 
+Uploaded CMS assets are stored in the Docker `media-data` volume and served by
+Caddy from `/media/`. Do not treat uploaded files as collected static assets.
+
 ## Certificate renewal
 
 The deploy installs a cron entry that runs `/opt/gathondu/renew-cert.sh` every

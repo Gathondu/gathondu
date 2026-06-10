@@ -1,4 +1,5 @@
 from content.models import (
+    Asset,
     Certification,
     Education,
     Experience,
@@ -6,11 +7,26 @@ from content.models import (
     SkillGroup,
     Stat,
 )
+from django.conf import settings
+from django.core.files import File
 from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
     help = "Seeds the CMS with Denis Gathondu's current portfolio content."
+
+    def create_asset_from_static(self, title, kind, static_path, alt_text=""):
+        source_path = settings.BASE_DIR / "content" / "static" / static_path
+        if not source_path.exists():
+            return None
+
+        with source_path.open("rb") as source_file:
+            return Asset.objects.create(
+                title=title,
+                kind=kind,
+                file=File(source_file, name=source_path.name),
+                alt_text=alt_text,
+            )
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -26,6 +42,7 @@ class Command(BaseCommand):
 
         if options["reset"]:
             Profile.objects.all().delete()
+            Asset.objects.all().delete()
 
         profile = Profile.objects.create(
             name="Denis Ngugi Gathondu",
@@ -166,6 +183,13 @@ class Command(BaseCommand):
             contact_copy="I'm open to contract work, senior engineering roles, and technical leadership positions. Based in Nairobi - available globally.",
             contact_note="The fastest way to reach me is via email. I typically respond within 24 hours. Tell me about your project, timeline, and what kind of help you're looking for.",
         )
+
+        profile.resume_asset = self.create_asset_from_static(
+            "Denis Gathondu CV",
+            Asset.Kind.PDF,
+            "content/cv/Denis_Gathondu_CV.pdf",
+        )
+        profile.save(update_fields=["resume_asset"])
 
         for order, stat in enumerate(
             [
@@ -339,10 +363,12 @@ class Command(BaseCommand):
                 ),
             ]
         ):
+            asset = self.create_asset_from_static(cert[0], Asset.Kind.PDF, cert[2])
             Certification.objects.create(
                 profile=profile,
                 name=cert[0],
                 url=cert[1],
+                asset=asset,
                 static_asset_path=cert[2],
                 order=order,
             )

@@ -4,6 +4,11 @@ from rest_framework import serializers
 from .models import Certification, Education, Experience, Profile, SkillGroup, Stat
 
 
+def absolute_url(context, url):
+    request = context.get("request")
+    return request.build_absolute_uri(url) if request else url
+
+
 class StatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stat
@@ -36,11 +41,12 @@ class CertificationSerializer(serializers.ModelSerializer):
         fields = ["name", "url", "asset"]
 
     def get_asset(self, obj):
+        if obj.asset and obj.asset.file:
+            return absolute_url(self.context, obj.asset.file.url)
         if not obj.static_asset_path:
             return ""
-        request = self.context.get("request")
         url = staticfiles_storage.url(obj.static_asset_path)
-        return request.build_absolute_uri(url) if request else url
+        return absolute_url(self.context, url)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -49,7 +55,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     trustItems = serializers.JSONField(source="trust_items")
     serviceItems = serializers.JSONField(source="service_items")
     featuredProjects = serializers.JSONField(source="featured_projects")
-    resumeUrl = serializers.URLField(source="resume_url")
+    resumeUrl = serializers.SerializerMethodField()
     experience = ExperienceSerializer(many=True)
     education = EducationSerializer()
     certifications = CertificationSerializer(many=True)
@@ -90,3 +96,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "education",
             "certifications",
         ]
+
+    def get_resumeUrl(self, obj):
+        if obj.resume_asset and obj.resume_asset.file:
+            return absolute_url(self.context, obj.resume_asset.file.url)
+        return obj.resume_url

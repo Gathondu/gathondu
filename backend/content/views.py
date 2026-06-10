@@ -8,8 +8,13 @@ from .serializers import ProfileSerializer
 @api_view(["GET"])
 def portfolio(request):
     profile = (
-        Profile.objects.prefetch_related("stats", "skill_groups", "experience", "certifications")
-        .select_related("education")
+        Profile.objects.prefetch_related(
+            "stats",
+            "skill_groups",
+            "experience",
+            "certifications__asset",
+        )
+        .select_related("education", "resume_asset")
         .first()
     )
     if profile is None:
