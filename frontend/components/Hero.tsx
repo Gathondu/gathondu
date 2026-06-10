@@ -30,7 +30,12 @@ export default function Hero({ data }: HeroProps) {
               ) : (
                 line
               )}
-              {i < headlineLines.length - 1 && <br />}
+              {i < headlineLines.length - 1 && (
+                <>
+                  {' '}
+                  <br />
+                </>
+              )}
             </span>
           ))}
         </h1>
@@ -52,6 +57,16 @@ export default function Hero({ data }: HeroProps) {
           >
             {data.ui_copy.hero_secondary_action}
           </a>
+          {data.resumeUrl && (
+            <a
+              href={data.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn btn-outline ${styles.button} ${styles.resumeButton}`}
+            >
+              {data.ui_copy.hero_resume_action}
+            </a>
+          )}
           <a
             href={data.github}
             target="_blank"

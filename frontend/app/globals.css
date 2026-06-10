@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "daisyui/themes.css";
 @import "daisyui/daisyui.css";
 
@@ -24,6 +23,7 @@
   --shadow-soft: rgba(28, 25, 23, 0.06);
   --nav-bg: rgba(255, 255, 255, 0.95);
   --watermark-opacity: 0.1;
+  --watermark-filter: none;
   --watermark-image: url("/portfolio-branding.svg");
 }
 
@@ -112,6 +112,7 @@
   --shadow-soft: rgba(0, 0, 0, 0.34);
   --nav-bg: rgba(15, 13, 12, 0.9);
   --watermark-opacity: 0.08;
+  --watermark-filter: none;
   --watermark-image: url("/portfolio-branding-dark.svg");
 }
 
@@ -131,7 +132,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
   background: var(--page-bg);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
@@ -154,20 +155,8 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
   background-size: min(82vw, 58rem);
+  filter: var(--watermark-filter);
   opacity: var(--watermark-opacity);
-}
-
-body:has(#hero) {
-  overflow: hidden;
-}
-
-body:has(#hero) main {
-  min-height: 0;
-}
-
-body:has(#hero) footer {
-  flex: 0 0 auto;
-  padding: 1rem 0;
 }
 
 .btn.btn-primary,

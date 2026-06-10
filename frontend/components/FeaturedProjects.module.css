@@ -1,0 +1,155 @@
+.section {
+  padding: 6rem 0;
+  background: var(--surface-bg);
+}
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sectionHeader {
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.eyebrow {
+  color: var(--coral-400);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background: var(--border-strong);
+}
+
+.introRow {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.heading {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-fraunces), var(--font-geist-sans), system-ui, sans-serif;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.copy {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.projects {
+  display: grid;
+  gap: 1rem;
+}
+
+.project {
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  background: var(--surface-muted);
+}
+
+.projectHeader {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.client {
+  margin: 0 0 0.35rem;
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.status {
+  width: fit-content;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--coral-100);
+  border-radius: 999px;
+  background: var(--surface-accent);
+  color: var(--coral-600);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.details {
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.details div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.details dt {
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.details dd {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.stack {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stackItem {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .introRow {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .projectHeader {
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+  }
+}

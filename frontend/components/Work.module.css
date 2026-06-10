@@ -30,6 +30,14 @@
   background: var(--border-strong);
 }
 
+.timelineHeading {
+  margin: 0 0 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-fraunces), var(--font-geist-sans), system-ui, sans-serif;
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
 .job {
   padding: 2.5rem 0;
   display: grid;

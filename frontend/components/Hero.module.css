@@ -1,6 +1,4 @@
 .hero {
-  min-height: 0;
-  flex: 1 1 auto;
   padding-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -12,7 +10,7 @@
   width: 100%;
   max-width: 64rem;
   margin: 0 auto;
-  padding: 2rem 1.5rem 1.5rem;
+  padding: 4rem 1.5rem 3rem;
 }
 
 .eyebrow {
@@ -42,8 +40,9 @@
   max-width: 48rem;
   margin: 0 0 1.25rem;
   color: var(--text-primary);
+  font-family: var(--font-fraunces), var(--font-geist-sans), system-ui, sans-serif;
   font-size: 2.625rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 1.05;
 }
@@ -79,16 +78,23 @@
   color: var(--text-secondary);
 }
 
-.secondaryButton:hover {
+.secondaryButton:hover,
+.resumeButton:hover {
   border-color: var(--text-subtle);
   background: var(--surface-soft);
   color: var(--text-primary);
 }
 
-.secondaryButton:focus-visible {
+.secondaryButton:focus-visible,
+.resumeButton:focus-visible {
   border-color: var(--coral-400);
   background: var(--surface-soft);
   color: var(--text-primary);
+}
+
+.resumeButton {
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
 }
 
 .ghostButton {
@@ -144,10 +150,33 @@
   }
 }
 
+@media (max-width: 767px) {
+  .container {
+    padding-top: 2.5rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 1.25rem;
+  }
+
+  .actions {
+    margin-bottom: 1.25rem;
+  }
+
+  .stat {
+    padding: 0.75rem 1rem;
+  }
+
+  .statValue {
+    font-size: 1.35rem;
+  }
+}
+
 @media (max-height: 760px) {
   .container {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .eyebrow {

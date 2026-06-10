@@ -1,8 +1,21 @@
 import type { Metadata } from 'next'
+import { Fraunces, Geist } from 'next/font/google'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { getPortfolio } from '@/lib/portfolio'
 import './globals.css'
+
+const geistSans = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist-sans',
+  display: 'swap',
+})
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   const portfolio = await getPortfolio()
@@ -38,7 +51,12 @@ export default async function RootLayout({
   `
 
   return (
-    <html lang="en" data-theme="gathondu" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="gathondu"
+      className={`${geistSans.variable} ${fraunces.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

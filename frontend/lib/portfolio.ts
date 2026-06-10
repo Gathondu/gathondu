@@ -18,6 +18,24 @@ export type PortfolioData = {
     href: string;
   }>;
   ui_copy: Record<string, string>;
+  trustItems: string[];
+  serviceItems: Array<{
+    step: string;
+    title: string;
+    summary: string;
+    outcome: string;
+  }>;
+  featuredProjects: Array<{
+    title: string;
+    client: string;
+    status: string;
+    problem: string;
+    role: string;
+    stack: string[];
+    outcome: string;
+    href?: string;
+  }>;
+  resumeUrl: string;
   skill_heading: string;
   skill_copy: string;
   about_heading: string;

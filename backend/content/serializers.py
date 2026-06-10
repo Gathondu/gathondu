@@ -46,6 +46,10 @@ class CertificationSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     stats = StatSerializer(many=True)
     skillGroups = SkillGroupSerializer(source="skill_groups", many=True)
+    trustItems = serializers.JSONField(source="trust_items")
+    serviceItems = serializers.JSONField(source="service_items")
+    featuredProjects = serializers.JSONField(source="featured_projects")
+    resumeUrl = serializers.URLField(source="resume_url")
     experience = ExperienceSerializer(many=True)
     education = EducationSerializer()
     certifications = CertificationSerializer(many=True)
@@ -69,6 +73,10 @@ class ProfileSerializer(serializers.ModelSerializer):
             "open_graph_description",
             "nav_links",
             "ui_copy",
+            "trustItems",
+            "serviceItems",
+            "featuredProjects",
+            "resumeUrl",
             "skill_heading",
             "skill_copy",
             "about_heading",

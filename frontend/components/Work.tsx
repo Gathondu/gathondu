@@ -17,6 +17,11 @@ export default function Work({ data }: WorkProps) {
         </div>
 
         <div>
+          {data.ui_copy.experience_timeline_label && (
+            <h2 className={styles.timelineHeading}>
+              {data.ui_copy.experience_timeline_label}
+            </h2>
+          )}
           {data.experience.map((job, i) => (
             <div
               key={i}
