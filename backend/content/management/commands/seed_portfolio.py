@@ -1,6 +1,12 @@
+from content.models import (
+    Certification,
+    Education,
+    Experience,
+    Profile,
+    SkillGroup,
+    Stat,
+)
 from django.core.management.base import BaseCommand
-
-from content.models import Certification, Education, Experience, Profile, SkillGroup, Stat
 
 
 class Command(BaseCommand):
@@ -22,7 +28,7 @@ class Command(BaseCommand):
             Profile.objects.all().delete()
 
         profile = Profile.objects.create(
-            name="Denis Gathondu",
+            name="Denis Ngugi Gathondu",
             initials="DNG",
             role="Tech Lead & Senior Full-Stack Engineer",
             location="Nairobi, Kenya",
