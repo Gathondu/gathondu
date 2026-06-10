@@ -23,6 +23,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: portfolio.seo_title,
     description: portfolio.seo_description,
+    icons: {
+      icon: '/favicon.png',
+    },
     openGraph: {
       title: portfolio.open_graph_title,
       description: portfolio.open_graph_description,
@@ -45,7 +48,7 @@ export default async function RootLayout({
         const theme = storedTheme ?? (prefersDark ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme === 'dark' ? 'gathondu-dark' : 'gathondu';
       } catch {
-        document.documentElement.dataset.theme = 'gathondu';
+        document.documentElement.dataset.theme = 'gathondu-dark';
       }
     })();
   `
