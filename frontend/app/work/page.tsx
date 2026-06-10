@@ -7,7 +7,6 @@ export default async function WorkPage() {
 
   return (
     <main>
-      <FeaturedProjects data={portfolio} />
       <Work data={portfolio} />
     </main>
   )

@@ -17,10 +17,13 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gathondu.vercel.app";
+
 export async function generateMetadata(): Promise<Metadata> {
   const portfolio = await getPortfolio();
 
   return {
+    metadataBase: new URL(siteUrl),
     title: portfolio.seo_title,
     description: portfolio.seo_description,
     openGraph: {
