@@ -64,7 +64,7 @@ export default function Navbar({ data }: NavbarProps) {
         <Link href="/" className={styles.brand}>
           {data.name.split(" ")[0]}{" "}
           <span className={styles.brandAccent}>
-            {data.name.split(" ").slice(1).join(" ")}
+            {data.name.split(" ").slice(-1).join(" ")}
           </span>
         </Link>
 
