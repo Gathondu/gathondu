@@ -1,4 +1,3 @@
-import FeaturedProjects from '@/components/FeaturedProjects'
 import Work from '@/components/Work'
 import { getPortfolio } from '@/lib/portfolio'
 

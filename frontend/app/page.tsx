@@ -1,5 +1,4 @@
 import Contact from "@/components/Contact";
-import FeaturedProjects from "@/components/FeaturedProjects";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import TrustStrip from "@/components/TrustStrip";

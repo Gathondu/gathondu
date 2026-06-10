@@ -11,6 +11,7 @@ def portfolio(request):
         Profile.objects.prefetch_related(
             "stats",
             "skill_groups",
+            "projects",
             "experience",
             "certifications__asset",
         )

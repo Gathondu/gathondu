@@ -1,7 +1,7 @@
 from django.contrib.staticfiles.storage import staticfiles_storage
 from rest_framework import serializers
 
-from .models import Certification, Education, Experience, Profile, SkillGroup, Stat
+from .models import Certification, Education, Experience, Profile, Project, SkillGroup, Stat
 
 
 def absolute_url(context, url):
@@ -25,6 +25,29 @@ class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Experience
         fields = ["role", "company", "location", "period", "bullets"]
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    stack = serializers.JSONField(source="tools")
+    projectUrl = serializers.URLField(source="project_url", allow_blank=True)
+    sourceUrl = serializers.URLField(source="source_url", allow_blank=True)
+
+    class Meta:
+        model = Project
+        fields = [
+            "title",
+            "client",
+            "status",
+            "problem",
+            "role",
+            "outcome",
+            "description",
+            "tools",
+            "stack",
+            "architecture",
+            "projectUrl",
+            "sourceUrl",
+        ]
 
 
 class EducationSerializer(serializers.ModelSerializer):
@@ -54,7 +77,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     skillGroups = SkillGroupSerializer(source="skill_groups", many=True)
     trustItems = serializers.JSONField(source="trust_items")
     serviceItems = serializers.JSONField(source="service_items")
-    featuredProjects = serializers.JSONField(source="featured_projects")
+    featuredProjects = serializers.SerializerMethodField()
     resumeUrl = serializers.SerializerMethodField()
     experience = ExperienceSerializer(many=True)
     education = EducationSerializer()
@@ -101,3 +124,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         if obj.resume_asset and obj.resume_asset.file:
             return absolute_url(self.context, obj.resume_asset.file.url)
         return obj.resume_url
+
+    def get_featuredProjects(self, obj):
+        projects = [project for project in obj.projects.all() if project.featured]
+        return ProjectSerializer(projects, many=True, context=self.context).data

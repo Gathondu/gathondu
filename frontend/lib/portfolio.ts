@@ -31,9 +31,13 @@ export type PortfolioData = {
     status: string;
     problem: string;
     role: string;
-    stack: string[];
     outcome: string;
-    href?: string;
+    description: string;
+    tools: string[];
+    stack: string[];
+    architecture: string;
+    projectUrl: string;
+    sourceUrl: string;
   }>;
   resumeUrl: string;
   skill_heading: string;

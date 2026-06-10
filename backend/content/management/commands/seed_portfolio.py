@@ -4,12 +4,110 @@ from content.models import (
     Education,
     Experience,
     Profile,
+    Project,
     SkillGroup,
     Stat,
 )
 from django.conf import settings
 from django.core.files import File
 from django.core.management.base import BaseCommand
+
+
+DEFAULT_PROJECTS = [
+    {
+        "title": "FieldEntry Survey Aggregation",
+        "client": "Rainforest Alliance",
+        "status": "Delivered",
+        "problem": "Certificate holders needed a clearer way to aggregate survey data from registered small farms.",
+        "role": "Independent consultant owning product architecture and implementation.",
+        "tools": ["React", "FastAPI", "Electron", "KoBo", "Python"],
+        "outcome": "Delivered an end-to-end data tool within 3 months, improving survey aggregation and reporting workflows.",
+        "description": "A desktop data workflow for aggregating field survey submissions from registered small farms into clearer reporting views.",
+        "architecture": "Electron packaged app with a React interface, FastAPI backend services, Python processing, and KoBo survey data integration.",
+    },
+    {
+        "title": "Greenhouse Gas Desktop Tool",
+        "client": "Rainforest Alliance",
+        "status": "Delivered",
+        "problem": "Teams needed a desktop workflow for greenhouse gas calculations across multiple farms.",
+        "role": "Designed the frontend, backend API, and integration path for farm-level calculation data.",
+        "tools": ["Electron", "React", "FastAPI", "Cool Farm API"],
+        "outcome": "Connected KoBo survey data to calculation APIs and packaged the workflow into a usable desktop app.",
+        "description": "A desktop application that connected farm survey records to greenhouse gas calculation workflows.",
+        "architecture": "Electron shell, React frontend, FastAPI integration layer, KoBo data ingestion, and Cool Farm API calculation handoff.",
+    },
+    {
+        "title": "AI-assisted Lexicon Platform",
+        "client": "Teknobyte",
+        "status": "Delivered",
+        "problem": "Language data workflows needed stronger quality controls and more efficient review tooling.",
+        "role": "Engineering lead building administrative tools and applying LLMs to proof-checking workflows.",
+        "tools": ["React", "Python", "LLMs", "Data tooling"],
+        "outcome": "Reduced data corruption and supported smarter review flows with AI-assisted suggestions.",
+        "description": "An administrative language-data platform with LLM-assisted proof checking and review support.",
+        "architecture": "React administrative interfaces backed by Python services and LLM-assisted data quality workflows.",
+    },
+    {
+        "title": "Kaziro",
+        "client": "Personal product",
+        "status": "MVP build",
+        "problem": "Job seekers lose time finding relevant roles, evaluating fit, researching companies, and tailoring application documents by hand.",
+        "role": "Designed and built the agentic product architecture, backend workers, SvelteKit frontend, and deployment path.",
+        "tools": ["FastAPI", "LangGraph", "Celery", "Redis", "PostgreSQL", "pgvector", "Supabase", "SvelteKit", "Tailwind", "DaisyUI", "Docker", "Caddy", "Vercel"],
+        "outcome": "Created a multi-tenant job application automation platform that can discover jobs, score fit, research employers, and generate tailored CV and cover letter drafts.",
+        "description": "Kaziro is an AI-powered SaaS product for automating the job application lifecycle from discovery to tailored application materials.",
+        "architecture": "SvelteKit frontend, FastAPI gateway, Celery scheduler and workers, Redis broker, LangGraph agent pipeline, PostgreSQL with pgvector, Supabase auth/storage, and server/Vercel deployment.",
+        "source_url": "https://github.com/Gathondu/kaziro",
+    },
+    {
+        "title": "Meridian",
+        "client": "Personal product",
+        "status": "In progress",
+        "problem": "Teams need a controlled way to inspect MCP capabilities through a web interface without exposing unsafe tool execution over HTTP.",
+        "role": "Built the SvelteKit and FastAPI monorepo shape, API boundaries, and AWS-oriented deployment architecture.",
+        "tools": ["SvelteKit", "FastAPI", "Terraform", "Docker", "Lambda container image", "ECR", "S3", "CloudFront"],
+        "outcome": "Created an inspection-focused app with read-only MCP endpoints and a clear path to static frontend plus Lambda-backed API deployment.",
+        "description": "Meridian is a SvelteKit and FastAPI application focused on MCP inspection workflows and cloud deployment readiness.",
+        "architecture": "Static SvelteKit frontend, FastAPI backend, read-only MCP inspection endpoints, Terraform-managed AWS infrastructure, Lambda container backend, and S3/CloudFront frontend hosting.",
+        "source_url": "https://github.com/Gathondu/meridian",
+    },
+    {
+        "title": "SautiRelay",
+        "client": "Personal product",
+        "status": "Planned MVP",
+        "problem": "Community reporting flows need privacy-first capture, consent-aware location handling, structured reports, and escalation routing.",
+        "role": "Defined the local-first architecture, OpenAPI boundary, frontend workflow, backend validation, and AWS deployment direction.",
+        "tools": ["Svelte 5", "FastAPI", "OpenAPI", "Generated TypeScript client", "Terraform", "AWS planning"],
+        "outcome": "Established a product and engineering foundation for anonymous reporting, report structuring, and responder handoff workflows.",
+        "description": "SautiRelay is a privacy-first community reporting and escalation platform designed for African civic and safety contexts.",
+        "architecture": "Svelte UI communicates through a generated TypeScript client against an OpenAPI-aligned FastAPI backend that owns validation, privacy-preserving normalization, and route recommendation.",
+        "source_url": "https://github.com/Gathondu/sautirelay",
+    },
+    {
+        "title": "Haven Circle",
+        "client": "Personal product",
+        "status": "Scaffolded",
+        "problem": "Solo luxury real estate operators need a polished listing platform with private admin workflows and media-rich property management.",
+        "role": "Scaffolded the full-stack product architecture, admin authentication path, data model foundation, and demo listing workflows.",
+        "tools": ["SvelteKit", "Tailwind", "FastAPI", "SQLAlchemy async", "PostgreSQL", "JWT", "Cloudinary"],
+        "outcome": "Created a SvelteKit and FastAPI base with JWT-protected admin flows, PostgreSQL persistence, and Cloudinary-backed media seeding.",
+        "description": "Haven Circle is a luxury solo real estate web platform with public listing experiences and protected admin workflows.",
+        "architecture": "SvelteKit frontend, FastAPI API, async SQLAlchemy persistence, PostgreSQL database, JWT admin authentication, and optional Cloudinary media storage for listing galleries.",
+        "source_url": "https://github.com/Gathondu/haven-circle",
+    },
+    {
+        "title": "Estfrank",
+        "client": "Estfrank Digitec",
+        "status": "Delivered",
+        "problem": "The company needed a branded corporate ICT site that communicated service domains, partners, clients, industries, and contact pathways.",
+        "role": "Built the static SvelteKit site, branded content system, reusable sections, and deployment-ready static output.",
+        "tools": ["SvelteKit", "Svelte 5", "TypeScript", "adapter-static", "CSS Modules", "cPanel static hosting"],
+        "outcome": "Delivered a polished ICT services website with responsive content sections, brand assets, and static hosting support.",
+        "description": "Estfrank is a corporate website for Estfrank Digitec, an ICT, software, cloud, security, and telecommunications services company.",
+        "architecture": "Static SvelteKit application with content modules, reusable service/project components, custom branding assets, and prerendered pages for cPanel-style hosting.",
+        "source_url": "https://github.com/Gathondu/estfranc",
+    },
+]
 
 
 class Command(BaseCommand):
@@ -60,6 +158,7 @@ class Command(BaseCommand):
             open_graph_description="Senior software engineer and tech lead based in Nairobi.",
             nav_links=[
                 {"label": "Work", "href": "/work"},
+                {"label": "Projects", "href": "/projects"},
                 {"label": "Skills", "href": "/skills"},
                 {"label": "About", "href": "/about"},
                 {"label": "Contact", "href": "/contact"},
@@ -79,6 +178,12 @@ class Command(BaseCommand):
                 "project_role_label": "Role",
                 "project_outcome_label": "Outcome",
                 "project_stack_label": "Stack",
+                "project_description_label": "Description",
+                "project_architecture_label": "Architecture",
+                "project_preview_label": "Preview",
+                "project_source_label": "Source",
+                "project_live_label": "Open live project",
+                "project_preview_unavailable": "Live preview is not available for this project yet.",
                 "experience_timeline_label": "Experience timeline",
                 "work_section_label": "Experience",
                 "skills_section_label": "Skills",
@@ -143,33 +248,7 @@ class Command(BaseCommand):
                 },
             ],
             featured_projects=[
-                {
-                    "title": "FieldEntry Survey Aggregation",
-                    "client": "Rainforest Alliance",
-                    "status": "Delivered",
-                    "problem": "Certificate holders needed a clearer way to aggregate survey data from registered small farms.",
-                    "role": "Independent consultant owning product architecture and implementation.",
-                    "stack": ["React", "FastAPI", "Electron", "KoBo", "Python"],
-                    "outcome": "Delivered an end-to-end data tool within 3 months, improving survey aggregation and reporting workflows.",
-                },
-                {
-                    "title": "Greenhouse Gas Desktop Tool",
-                    "client": "Rainforest Alliance",
-                    "status": "Delivered",
-                    "problem": "Teams needed a desktop workflow for greenhouse gas calculations across multiple farms.",
-                    "role": "Designed the frontend, backend API, and integration path for farm-level calculation data.",
-                    "stack": ["Electron", "React", "FastAPI", "Cool Farm API"],
-                    "outcome": "Connected KoBo survey data to calculation APIs and packaged the workflow into a usable desktop app.",
-                },
-                {
-                    "title": "AI-assisted Lexicon Platform",
-                    "client": "Teknobyte",
-                    "status": "Delivered",
-                    "problem": "Language data workflows needed stronger quality controls and more efficient review tooling.",
-                    "role": "Engineering lead building administrative tools and applying LLMs to proof-checking workflows.",
-                    "stack": ["React", "Python", "LLMs", "Data tooling"],
-                    "outcome": "Reduced data corruption and supported smarter review flows with AI-assisted suggestions.",
-                },
+                {**project, "stack": project["tools"]} for project in DEFAULT_PROJECTS
             ],
             skill_heading="The tools I reach\nfor most.",
             skill_copy="Comfortable from database schema to deployment pipeline. I pick what solves the problem - not what's trendy.",
@@ -190,6 +269,24 @@ class Command(BaseCommand):
             "content/cv/Denis_Gathondu_CV.pdf",
         )
         profile.save(update_fields=["resume_asset"])
+
+        for order, project in enumerate(DEFAULT_PROJECTS):
+            Project.objects.create(
+                profile=profile,
+                title=project["title"],
+                client=project.get("client", ""),
+                status=project.get("status", ""),
+                problem=project.get("problem", ""),
+                role=project.get("role", ""),
+                tools=project.get("tools", []),
+                outcome=project.get("outcome", ""),
+                description=project.get("description", ""),
+                architecture=project.get("architecture", ""),
+                project_url=project.get("project_url", ""),
+                source_url=project.get("source_url", ""),
+                featured=True,
+                order=order,
+            )
 
         for order, stat in enumerate(
             [

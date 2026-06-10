@@ -63,6 +63,29 @@ class Profile(models.Model):
         return self.name
 
 
+class Project(models.Model):
+    profile = models.ForeignKey(Profile, related_name="projects", on_delete=models.CASCADE)
+    title = models.CharField(max_length=180)
+    client = models.CharField(max_length=160, blank=True)
+    status = models.CharField(max_length=80, blank=True)
+    problem = models.TextField(blank=True)
+    role = models.TextField(blank=True)
+    outcome = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    tools = models.JSONField(default=list, blank=True)
+    architecture = models.TextField(blank=True)
+    project_url = models.URLField(blank=True)
+    source_url = models.URLField(blank=True)
+    featured = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.title
+
+
 class Stat(models.Model):
     profile = models.ForeignKey(Profile, related_name="stats", on_delete=models.CASCADE)
     value = models.CharField(max_length=24)

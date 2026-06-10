@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Asset, Certification, Education, Experience, Profile, SkillGroup, Stat
+from .models import Asset, Certification, Education, Experience, Profile, Project, SkillGroup, Stat
 
 
 @admin.register(Asset)
@@ -37,6 +37,11 @@ class ExperienceInline(admin.StackedInline):
     extra = 1
 
 
+class ProjectInline(admin.StackedInline):
+    model = Project
+    extra = 1
+
+
 class CertificationInline(admin.StackedInline):
     model = Certification
     extra = 1
@@ -56,6 +61,7 @@ class ProfileAdmin(admin.ModelAdmin):
     inlines = [
         StatInline,
         SkillGroupInline,
+        ProjectInline,
         ExperienceInline,
         EducationInline,
         CertificationInline,
@@ -66,6 +72,13 @@ admin.site.register(Stat)
 admin.site.register(SkillGroup)
 admin.site.register(Experience)
 admin.site.register(Education)
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ("title", "client", "status", "featured", "order")
+    list_filter = ("featured", "status", "client")
+    search_fields = ("title", "client", "description", "tools", "architecture")
 
 
 @admin.register(Certification)
