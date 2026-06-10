@@ -24,7 +24,7 @@
   --nav-bg: rgba(255, 255, 255, 0.95);
   --watermark-opacity: 0.1;
   --watermark-filter: none;
-  --watermark-image: url("/portfolio-branding.svg");
+  --watermark-image: url("/portfolio-branding-light.svg");
 }
 
 [data-theme="gathondu"] {
@@ -111,7 +111,7 @@
   --border-strong: #3a312c;
   --shadow-soft: rgba(0, 0, 0, 0.34);
   --nav-bg: rgba(15, 13, 12, 0.9);
-  --watermark-opacity: 0.08;
+  --watermark-opacity: 0.1;
   --watermark-filter: none;
   --watermark-image: url("/portfolio-branding-dark.svg");
 }

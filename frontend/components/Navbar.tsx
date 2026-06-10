@@ -16,6 +16,18 @@ const THEME_ATTRIBUTE: Record<ThemePreference, string> = {
   light: 'gathondu',
   dark: 'gathondu-dark',
 }
+const FAVICON_BY_THEME: Record<ThemePreference, string> = {
+  light: '/favicon-light.png',
+  dark: '/favicon-dark.png',
+}
+
+function applyThemeFavicon(theme: ThemePreference) {
+  const favicon =
+    document.getElementById('theme-favicon') ??
+    document.querySelector('link[rel="icon"]')
+
+  favicon?.setAttribute('href', FAVICON_BY_THEME[theme])
+}
 
 export default function Navbar({ data }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
@@ -35,12 +47,14 @@ export default function Navbar({ data }: NavbarProps) {
         : 'light'
 
     setTheme(currentTheme)
+    applyThemeFavicon(currentTheme)
   }, [])
 
   const toggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.theme = THEME_ATTRIBUTE[nextTheme]
     localStorage.setItem(THEME_STORAGE_KEY, nextTheme)
+    applyThemeFavicon(nextTheme)
     setTheme(nextTheme)
   }
 
