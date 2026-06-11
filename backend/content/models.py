@@ -116,6 +116,7 @@ class Experience(models.Model):
     profile = models.ForeignKey(Profile, related_name="experience", on_delete=models.CASCADE)
     role = models.CharField(max_length=160)
     company = models.CharField(max_length=160)
+    logo_url = models.CharField(blank=True, max_length=500)
     location = models.CharField(max_length=160)
     period = models.CharField(max_length=120)
     bullets = models.JSONField(default=list)

@@ -314,6 +314,7 @@ class Command(BaseCommand):
                 (
                     "Senior Software Engineer (Contract)",
                     "Andela",
+                    "/experience-logos/andela.png",
                     "New York, NY (remote)",
                     "Feb 2017 - Present",
                     [
@@ -326,6 +327,7 @@ class Command(BaseCommand):
                 (
                     "Independent Consultant",
                     "Rainforest Alliance",
+                    "/experience-logos/rainforest-alliance.png",
                     "Nairobi, Kenya",
                     "Jun 2025 - Jan 2026",
                     [
@@ -338,6 +340,7 @@ class Command(BaseCommand):
                 (
                     "Engineering Manager",
                     "Jipamba",
+                    "/experience-logos/jipamba.png",
                     "Nairobi, Kenya",
                     "Dec 2024 - Dec 2025",
                     [
@@ -351,6 +354,7 @@ class Command(BaseCommand):
                 (
                     "Technical Lead / Senior Full-Stack Engineer",
                     "Jipamba",
+                    "/experience-logos/jipamba.png",
                     "Nairobi, Kenya",
                     "Mar 2024 - Dec 2024",
                     [
@@ -363,6 +367,7 @@ class Command(BaseCommand):
                 (
                     "Engineering Lead",
                     "Teknobyte",
+                    "/experience-logos/teknobyte.jpg",
                     "Nairobi, Kenya",
                     "Sep 2022 - Nov 2024",
                     [
@@ -374,6 +379,7 @@ class Command(BaseCommand):
                 (
                     "Senior Software Engineer (Contract)",
                     "Shelter Animals Count",
+                    "/experience-logos/shelter-animals-count.png",
                     "Atlanta, GA (remote)",
                     "May 2022 - Oct 2022",
                     [
@@ -384,6 +390,7 @@ class Command(BaseCommand):
                 (
                     "Software Engineer (Contract)",
                     "WeSpire",
+                    "/experience-logos/wespire.png",
                     "Boston, MA (remote)",
                     "Jul 2020 - Mar 2022",
                     [
@@ -394,6 +401,7 @@ class Command(BaseCommand):
                 (
                     "Software Engineer (Contract)",
                     "BombFell",
+                    "/experience-logos/bombfell.png",
                     "New York, NY (remote)",
                     "Feb 2019 - Apr 2020",
                     [
@@ -405,6 +413,7 @@ class Command(BaseCommand):
                 (
                     "Associate Software Engineer (Contract)",
                     "Asset-Map",
+                    "/experience-logos/asset-map.png",
                     "Philadelphia, PA (remote)",
                     "Mar 2018 - Jan 2019",
                     [
@@ -417,9 +426,10 @@ class Command(BaseCommand):
                 profile=profile,
                 role=job[0],
                 company=job[1],
-                location=job[2],
-                period=job[3],
-                bullets=job[4],
+                logo_url=job[2],
+                location=job[3],
+                period=job[4],
+                bullets=job[5],
                 order=order,
             )
 

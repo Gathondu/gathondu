@@ -70,8 +70,14 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Stat)
 admin.site.register(SkillGroup)
-admin.site.register(Experience)
 admin.site.register(Education)
+
+
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    list_display = ("role", "company", "location", "period", "order")
+    list_filter = ("company", "location")
+    search_fields = ("role", "company", "location", "period")
 
 
 @admin.register(Project)

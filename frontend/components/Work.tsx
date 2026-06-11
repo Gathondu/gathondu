@@ -27,10 +27,22 @@ export default function Work({ data }: WorkProps) {
               key={i}
               className={styles.job}
             >
-              <div>
-                <p className={styles.company}>{job.company}</p>
-                <p className={styles.period}>{job.period}</p>
-                <p className={styles.location}>{job.location}</p>
+              <div className={styles.companyBlock}>
+                {job.logoUrl && (
+                  <span className={styles.logoFrame}>
+                    <img
+                      className={styles.logo}
+                      src={job.logoUrl}
+                      alt={`${job.company} logo`}
+                      loading="lazy"
+                    />
+                  </span>
+                )}
+                <div>
+                  <p className={styles.company}>{job.company}</p>
+                  <p className={styles.period}>{job.period}</p>
+                  <p className={styles.location}>{job.location}</p>
+                </div>
               </div>
 
               <div>

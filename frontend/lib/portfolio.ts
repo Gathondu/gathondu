@@ -58,6 +58,7 @@ export type PortfolioData = {
   experience: Array<{
     role: string;
     company: string;
+    logoUrl: string;
     location: string;
     period: string;
     bullets: string[];

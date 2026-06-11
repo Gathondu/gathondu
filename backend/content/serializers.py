@@ -22,9 +22,11 @@ class SkillGroupSerializer(serializers.ModelSerializer):
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
+    logoUrl = serializers.CharField(source="logo_url", allow_blank=True)
+
     class Meta:
         model = Experience
-        fields = ["role", "company", "location", "period", "bullets"]
+        fields = ["role", "company", "logoUrl", "location", "period", "bullets"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
