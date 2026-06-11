@@ -8,5 +8,5 @@ export async function GET(
   { params }: { params: Promise<{ path: string[] }> },
 ) {
   const { path } = await params;
-  return proxyBackendAsset(request, "static", path);
+  return proxyBackendAsset(request, "media", path);
 }

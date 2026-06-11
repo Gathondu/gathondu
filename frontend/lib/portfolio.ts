@@ -120,11 +120,19 @@ function toProxyAssetUrl(asset: string, backendOrigin: string): string {
     const assetUrl = new URL(asset);
     const origin = new URL(backendOrigin);
 
-    if (assetUrl.origin !== origin.origin || !assetUrl.pathname.startsWith("/static/")) {
+    if (assetUrl.origin !== origin.origin) {
       return asset;
     }
 
-    return `/api/backend-static${assetUrl.pathname}`;
+    if (assetUrl.pathname.startsWith("/static/")) {
+      return `/api/backend-static${assetUrl.pathname}`;
+    }
+
+    if (assetUrl.pathname.startsWith("/media/")) {
+      return `/api/backend-media${assetUrl.pathname}`;
+    }
+
+    return asset;
   } catch {
     return asset;
   }
