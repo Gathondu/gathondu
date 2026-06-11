@@ -160,6 +160,7 @@ jobs:
           as_root cp /tmp/gathondu-deploy/infra/backend/Caddyfile.http "$APP_DIR/Caddyfile.http"
           as_root cp /tmp/gathondu-deploy/infra/backend/Caddyfile.https "$APP_DIR/Caddyfile.https"
           as_root cp /tmp/gathondu-deploy/infra/backend/deploy.sh "$APP_DIR/deploy.sh"
+          as_root cp /tmp/gathondu-deploy/infra/backend/Makefile "$APP_DIR/Makefile"
           as_root cp /tmp/gathondu-deploy/infra/backend/renew-cert.sh "$APP_DIR/renew-cert.sh"
           as_root cp /tmp/backend.env.production "$APP_DIR/.env.production"
           as_root chmod 600 "$APP_DIR/.env.production"

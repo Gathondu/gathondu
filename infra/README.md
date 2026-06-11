@@ -31,6 +31,21 @@ clean backend tarball instead of copying local virtualenvs or SQLite files.
 Uploaded CMS assets are stored in the Docker `media-data` volume and served by
 Caddy from `/media/`. Do not treat uploaded files as collected static assets.
 
+## Server operations
+
+The backend deploy copies `infra/backend/Makefile` to `/opt/gathondu/Makefile`.
+On the server, run commands from `/opt/gathondu`:
+
+```bash
+make ps
+make manage CMD="check"
+make createsuperuser
+make migrate
+make seed-reset
+make restart
+make logs-web
+```
+
 ## Certificate renewal
 
 The deploy installs a cron entry that runs `/opt/gathondu/renew-cert.sh` every
